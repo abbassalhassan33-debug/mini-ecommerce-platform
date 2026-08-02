@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 function ProductDetailPage() {
   const { id } = useParams();
 
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -59,6 +61,7 @@ function ProductDetailPage() {
           ))}
         </div>
       )}
+      <button onClick={() => addToCart(product)}>Add to Cart</button>
     </div>
   );
 }
