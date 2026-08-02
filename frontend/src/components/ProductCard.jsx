@@ -59,18 +59,11 @@ function ProductCard({ product }) {
         </div>
       )}
 
-      <button>View Details</button>
-
-      <button
-        onClick={() =>
-          addToCart({
-            ...product,
-            selectedVariants,
-          })
-        }
-      >
-        Add to Cart
+      <button onClick={() => navigate(`/products/${product.id}`)}>
+        View Details
       </button>
+
+      <button onClick={handleAddToCart}>Add to Cart</button>
     </div>
   );
 }
