@@ -2,18 +2,15 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
+const healthRouts = require("./routes/healthRoutes");
+
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Test Route
-app.get("/", (req, res) => {
-  res.json({
-    message: "Mini E-Commerce API is running!",
-  });
-});
+// Route
+app.use("/", healthRouts);
 
 const PORT = process.env.PORT || 5000;
 
