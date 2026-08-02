@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-
+import { useWishlist } from "../context/WishlistContext";
 function ProductCard({ product }) {
   const { addToCart } = useCart();
+  const { addToWishlist } = useWishlist();
   const navigate = useNavigate();
 
   const [selectedVariants, setSelectedVariants] = useState({});
@@ -21,6 +22,10 @@ function ProductCard({ product }) {
       ...product,
       selectedVariants,
     });
+  };
+
+  const handleAddToWishlist = () => {
+    addToWishlist(product);
   };
 
   return (
@@ -64,6 +69,8 @@ function ProductCard({ product }) {
       </button>
 
       <button onClick={handleAddToCart}>Add to Cart</button>
+
+      <button onClick={handleAddToWishlist}>❤️ Add to Wishlist</button>
     </div>
   );
 }

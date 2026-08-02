@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ProductListPage from "./pages/ProductListPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import WishlistPage from "./pages/WishlistPage";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
         <Link to="/products">Products</Link>
         {" | "}
         <Link to="/cart">Cart</Link>
+        {" | "}
+        <Link to="/wishlist">Wishlist ❤️</Link>
       </nav>
 
       <Routes>
@@ -41,6 +44,15 @@ function App() {
           element={
             <ProtectedRoute>
               <CartPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/wishlist"
+          element={
+            <ProtectedRoute>
+              <WishlistPage />
             </ProtectedRoute>
           }
         />

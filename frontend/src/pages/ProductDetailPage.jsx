@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 
 function ProductDetailPage() {
   const { id } = useParams();
 
   const { addToCart } = useCart();
-
+  const { addToWishlist } = useWishlist();
   const [selectedVariants, setSelectedVariants] = useState({});
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -41,7 +42,9 @@ function ProductDetailPage() {
   if (error) {
     return <h1>Error: {error}</h1>;
   }
-
+  const handleAddToWishlist = () => {
+    addToWishlist(product);
+  };
   const variantGroups = product.variants.reduce((groups, variant) => {
     if (!groups[variant.type]) {
       groups[variant.type] = [];
@@ -96,6 +99,8 @@ function ProductDetailPage() {
       >
         Add to Cart
       </button>
+
+      <button onClick={handleAddToWishlist}>❤️ Add to Wishlist</button>
     </div>
   );
 }
