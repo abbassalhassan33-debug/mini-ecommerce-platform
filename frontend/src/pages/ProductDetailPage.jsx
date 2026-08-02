@@ -6,6 +6,7 @@ function ProductDetailPage() {
   const { id } = useParams();
 
   const { addToCart } = useCart();
+  const [selectedVariants, setSelectedVariants] = useState({});
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -55,13 +56,30 @@ function ProductDetailPage() {
           <h3>Variants</h3>
 
           {product.variants.map((variant, index) => (
-            <p key={index}>
+            <button
+              key={index}
+              onClick={() =>
+                setSelectedVariants((currentVariants) => ({
+                  ...currentVariants,
+                  [variant.type]: variant.value,
+                }))
+              }
+            >
               {variant.type}: {variant.value}
-            </p>
+            </button>
           ))}
         </div>
       )}
-      <button onClick={() => addToCart(product)}>Add to Cart</button>
+      <button
+        onClick={() =>
+          addToCart({
+            ...product,
+            selectedVariants,
+          })
+        }
+      >
+        Add to Cart
+      </button>
     </div>
   );
 }

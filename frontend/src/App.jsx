@@ -1,34 +1,53 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import CartPage from "./pages/CartPage";
+import { Link } from "react-router-dom";
 import ProductListPage from "./pages/ProductListPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
+    <>
+      <nav>
+        <Link to="/products">Products</Link>
+        {" | "}
+        <Link to="/cart">Cart</Link>
+      </nav>
 
-      <Route
-        path="/products"
-        element={
-          <ProtectedRoute>
-            <ProductListPage />
-          </ProtectedRoute>
-        }
-      />
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
 
-      <Route
-        path="/products/:id"
-        element={
-          <ProtectedRoute>
-            <ProductDetailPage />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <ProductListPage />
+            </ProtectedRoute>
+          }
+        />
 
-      <Route path="*" element={<Navigate to="/login" replace />} />
-    </Routes>
+        <Route
+          path="/products/:id"
+          element={
+            <ProtectedRoute>
+              <ProductDetailPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </>
   );
 }
 export default App;
