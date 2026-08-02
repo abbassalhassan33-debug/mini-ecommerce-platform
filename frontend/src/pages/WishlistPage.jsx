@@ -1,8 +1,18 @@
 import { useWishlist } from "../context/WishlistContext";
+import { useCart } from "../context/CartContext";
 
 function WishlistPage() {
   const { wishlistItems, removeFromWishlist } = useWishlist();
+  const { addToCart } = useCart();
 
+  const moveToCart = (product) => {
+    addToCart({
+      ...product,
+      selectedVariants: product.selectedVariants || {},
+    });
+
+    removeFromWishlist(product.id);
+  };
   return (
     <div>
       <h1>My Wishlist ❤️</h1>
@@ -24,6 +34,8 @@ function WishlistPage() {
             <h2>{product.title}</h2>
 
             <p>${product.price}</p>
+
+            <button onClick={() => moveToCart(product)}>🛒 Move to Cart</button>
 
             <button onClick={() => removeFromWishlist(product.id)}>
               Remove
