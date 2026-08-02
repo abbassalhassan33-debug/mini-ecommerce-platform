@@ -6,6 +6,7 @@ function ProductDetailPage() {
   const { id } = useParams();
 
   const { addToCart } = useCart();
+
   const [selectedVariants, setSelectedVariants] = useState({});
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -41,6 +42,16 @@ function ProductDetailPage() {
     return <h1>Error: {error}</h1>;
   }
 
+  const variantGroups = product.variants.reduce((groups, variant) => {
+    if (!groups[variant.type]) {
+      groups[variant.type] = [];
+    }
+
+    groups[variant.type].push(variant.value);
+
+    return groups;
+  }, {});
+
   return (
     <div>
       <h1>{product.title}</h1>
@@ -51,25 +62,30 @@ function ProductDetailPage() {
 
       <p>Stock: {product.stock}</p>
 
-      {product.variants.length > 0 && (
-        <div>
-          <h3>Variants</h3>
+      {Object.entries(variantGroups).map(([type, values]) => (
+        <div key={type}>
+          <h3>{type}</h3>
 
-          {product.variants.map((variant, index) => (
+          {values.map((value) => (
             <button
-              key={index}
+              key={value}
               onClick={() =>
                 setSelectedVariants((currentVariants) => ({
                   ...currentVariants,
-                  [variant.type]: variant.value,
+                  [type]: value,
                 }))
               }
+              style={{
+                fontWeight:
+                  selectedVariants[type] === value ? "bold" : "normal",
+              }}
             >
-              {variant.type}: {variant.value}
+              {value}
             </button>
           ))}
         </div>
-      )}
+      ))}
+
       <button
         onClick={() =>
           addToCart({
