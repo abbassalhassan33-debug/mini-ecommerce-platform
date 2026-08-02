@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import ProductListPage from "./pages/ProductListPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
   return (
@@ -16,6 +17,16 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/products/:id"
+        element={
+          <ProtectedRoute>
+            <ProductDetailPage />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
