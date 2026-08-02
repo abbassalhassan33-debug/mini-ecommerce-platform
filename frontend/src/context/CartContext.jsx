@@ -100,6 +100,67 @@ export function CartProvider({ children }) {
     );
   };
 
+  const changeVariant = (productId, currentVariants, variantType, newValue) => {
+    setCartItems((currentItems) => {
+      const newVariants = {
+        ...currentVariants,
+        [variantType]: newValue,
+      };
+
+      const existingItem = currentItems.find(
+        (item) =>
+          item.id === productId &&
+          JSON.stringify(item.selectedVariants || {}) ===
+            JSON.stringify(newVariants),
+      );
+
+      if (existingItem) {
+        return currentItems
+          .map((item) => {
+            const isCurrentItem =
+              item.id === productId &&
+              JSON.stringify(item.selectedVariants || {}) ===
+                JSON.stringify(currentVariants);
+
+            const isNewItem =
+              item.id === productId &&
+              JSON.stringify(item.selectedVariants || {}) ===
+                JSON.stringify(newVariants);
+
+            if (isCurrentItem && existingItem === item) {
+              return null;
+            }
+
+            if (isNewItem) {
+              return {
+                ...item,
+                quantity: item.quantity + 1,
+              };
+            }
+
+            return item;
+          })
+          .filter(Boolean);
+      }
+
+      return currentItems.map((item) => {
+        const isCurrentItem =
+          item.id === productId &&
+          JSON.stringify(item.selectedVariants || {}) ===
+            JSON.stringify(currentVariants);
+
+        if (!isCurrentItem) {
+          return item;
+        }
+
+        return {
+          ...item,
+          selectedVariants: newVariants,
+        };
+      });
+    });
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -108,6 +169,7 @@ export function CartProvider({ children }) {
         increaseQuantity,
         decreaseQuantity,
         removeFromCart,
+        changeVariant,
       }}
     >
       {children}

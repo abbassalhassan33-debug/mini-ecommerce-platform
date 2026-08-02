@@ -1,8 +1,13 @@
 import { useCart } from "../context/CartContext";
 
 function CartPage() {
-  const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } =
-    useCart();
+  const {
+    cartItems,
+    increaseQuantity,
+    decreaseQuantity,
+    removeFromCart,
+    changeVariant,
+  } = useCart();
 
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -24,11 +29,35 @@ function CartPage() {
               <p>Price: ${item.price}</p>
 
               {item.selectedVariants &&
-                Object.entries(item.selectedVariants).map(([type, value]) => (
-                  <p key={type}>
-                    {type}: {value}
-                  </p>
-                ))}
+                Object.entries(item.selectedVariants).map(([type, value]) => {
+                  const variantValues = item.variants
+                    .filter((variant) => variant.type === type)
+                    .map((variant) => variant.value);
+
+                  return (
+                    <div key={type}>
+                      <label>{type}: </label>
+
+                      <select
+                        value={value}
+                        onChange={(event) =>
+                          changeVariant(
+                            item.id,
+                            item.selectedVariants,
+                            type,
+                            event.target.value,
+                          )
+                        }
+                      >
+                        {variantValues.map((variantValue) => (
+                          <option key={variantValue} value={variantValue}>
+                            {variantValue}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })}
 
               <div>
                 <button
