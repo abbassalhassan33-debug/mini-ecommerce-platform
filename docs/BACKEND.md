@@ -90,3 +90,62 @@ Example workflow:
 4. Confirm expected data responses.
 
 Postman helped ensure that the backend API behaved correctly before integrating it with the React frontend.
+
+---
+
+# API Endpoints
+
+## Authentication
+
+### Login
+
+Method:
+
+- POST
+
+Endpoint:
+
+- /auth/login
+
+Purpose:
+
+Authenticates users and returns an authentication token.
+
+Example request:
+
+```json
+{
+  "username": "example",
+  "password": "password"
+}
+```
+
+## Products
+
+### Get Products
+
+Method:
+
+- GET
+
+Endpoint:
+
+- /products
+
+Purpose:
+
+Returns all available products.
+
+### Get Product Details
+
+Method:
+
+- GET
+
+Endpoint:
+
+- /products/:id
+
+Purpose:
+
+Returns details for a specific product.
