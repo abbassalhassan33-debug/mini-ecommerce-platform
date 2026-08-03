@@ -6,6 +6,8 @@ import ProductListPage from "./pages/ProductListPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import WishlistPage from "./pages/WishlistPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 
 function App() {
   return (
@@ -45,6 +47,24 @@ function App() {
             <ProtectedRoute>
               <CartPage />
             </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/order-confirmation"
+          element={
+            <ProtectedRoute>
+              <OrderConfirmationPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/checkout"
+          element={
+            <protectedRoute>
+              <CheckoutPage />
+            </protectedRoute>
           }
         />
 
