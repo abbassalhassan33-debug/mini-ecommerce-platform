@@ -18,18 +18,20 @@ function CartPage() {
   );
 
   return (
-    <div>
+    <div className="cart-page">
       <h1>Your Cart</h1>
 
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <div className="empty-cart">
+          <p>Your cart is empty.</p>
+        </div>
       ) : (
-        <div>
+        <div className="cart-container">
           {cartItems.map((item) => (
-            <div key={item.id}>
+            <div className="cart-item" key={item.id}>
               <h2>{item.title}</h2>
 
-              <p>Price: ${item.price}</p>
+              <p className="cart-price">Price: ${item.price}</p>
 
               {item.selectedVariants &&
                 Object.entries(item.selectedVariants).map(([type, value]) => {
@@ -38,8 +40,8 @@ function CartPage() {
                     .map((variant) => variant.value);
 
                   return (
-                    <div key={type}>
-                      <label>{type}: </label>
+                    <div className="variant-select" key={type}>
+                      <label>{type}</label>
 
                       <select
                         value={value}
@@ -62,7 +64,7 @@ function CartPage() {
                   );
                 })}
 
-              <div>
+              <div className="quantity-controls">
                 <button
                   onClick={() =>
                     decreaseQuantity(item.id, item.selectedVariants)
@@ -71,7 +73,7 @@ function CartPage() {
                   -
                 </button>
 
-                <span> {item.quantity} </span>
+                <span>{item.quantity}</span>
 
                 <button
                   onClick={() =>
@@ -82,23 +84,29 @@ function CartPage() {
                 </button>
               </div>
 
-              <p>Subtotal: ${item.price * item.quantity}</p>
+              <p className="subtotal">
+                Subtotal: ${item.price * item.quantity}
+              </p>
 
               <button
+                className="delete-button"
                 onClick={() => removeFromCart(item.id, item.selectedVariants)}
               >
                 Delete
               </button>
-
-              <hr />
             </div>
           ))}
 
-          <h2>Total: ${total}</h2>
+          <div className="cart-total">
+            <h2>Total: ${total}</h2>
 
-          <button onClick={() => navigate("/checkout")}>
-            Proceed to Checkout
-          </button>
+            <button
+              className="checkout-button"
+              onClick={() => navigate("/checkout")}
+            >
+              Proceed to Checkout
+            </button>
+          </div>
         </div>
       )}
     </div>

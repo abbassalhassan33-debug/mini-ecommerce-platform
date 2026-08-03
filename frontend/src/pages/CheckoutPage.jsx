@@ -18,36 +18,37 @@ function CheckoutPage() {
   );
 
   return (
-    <div>
+    <div className="checkout-page">
       <h1>Checkout</h1>
 
       {cartItems.length === 0 ? (
-        <p>Your Cart is empty</p>
+        <div className="empty-cart">
+          <p>Your cart is empty</p>
+        </div>
       ) : (
-        <>
-          <h2>Order Summary</h2>
+        <div className="checkout-container">
+          <div className="order-summary">
+            <h2>Order Summary</h2>
 
-          {cartItems.map((item, index) => (
-            <div
-              key={index}
-              style={{
-                border: "1px solid #ccc",
-                marginBottom: "10px",
-                padding: "10px",
-              }}
-            >
-              <h3>{item.title}</h3>
+            {cartItems.map((item) => (
+              <div className="checkout-item" key={item.id}>
+                <h3>{item.title}</h3>
 
-              <p>Price: ${item.price}</p>
+                <p>Price: ${item.price}</p>
 
-              <p>Subtotal: ${item.price * item.quantity}</p>
-            </div>
-          ))}
+                <p>Subtotal: ${item.price * item.quantity}</p>
+              </div>
+            ))}
+          </div>
 
-          <h2>Total: ${total}</h2>
+          <div className="checkout-total">
+            <h2>Total: ${total}</h2>
 
-          <button onClick={handlePlaceOrder}>Place Order</button>
-        </>
+            <button className="place-order-button" onClick={handlePlaceOrder}>
+              Place Order
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

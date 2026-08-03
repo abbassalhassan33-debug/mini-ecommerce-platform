@@ -14,34 +14,42 @@ function WishlistPage() {
     removeFromWishlist(product.id);
   };
   return (
-    <div>
+    <div className="wishlist-page">
       <h1>My Wishlist ❤️</h1>
 
       {wishlistItems.length === 0 ? (
-        <p>Your wishlist is empty</p>
+        <div className="empty-cart">
+          <p>Your wishlist is empty</p>
+        </div>
       ) : (
-        wishlistItems.map((product) => (
-          <div
-            key={product.id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              marginBottom: "15px",
-            }}
-          >
-            <img src={product.image} alt={product.title} width="150" />
+        <div className="wishlist-grid">
+          {wishlistItems.map((product) => (
+            <div className="wishlist-card" key={product.id}>
+              <img
+                src={product.image}
+                alt={product.title}
+                className="wishlist-image"
+              />
 
-            <h2>{product.title}</h2>
+              <h2>{product.title}</h2>
 
-            <p>${product.price}</p>
+              <p className="wishlist-price">${product.price}</p>
 
-            <button onClick={() => moveToCart(product)}>🛒 Move to Cart</button>
+              <div className="wishlist-actions">
+                <button onClick={() => moveToCart(product)}>
+                  🛒 Move to Cart
+                </button>
 
-            <button onClick={() => removeFromWishlist(product.id)}>
-              Remove
-            </button>
-          </div>
-        ))
+                <button
+                  className="delete-button"
+                  onClick={() => removeFromWishlist(product.id)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
