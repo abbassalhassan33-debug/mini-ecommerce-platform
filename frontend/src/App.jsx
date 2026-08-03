@@ -8,10 +8,13 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import WishlistPage from "./pages/WishlistPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isLoginPage = location.pathname === "/login";
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -20,15 +23,17 @@ function App() {
 
   return (
     <>
-      <nav>
-        <Link to="/products">Products</Link>
-        {" | "}
-        <Link to="/cart">Cart</Link>
-        {" | "}
-        <Link to="/wishlist">Wishlist ❤️</Link>
-        {" | "}
-        <button onClick={handleLogout}>Logout</button>
-      </nav>
+      {!isLoginPage && (
+        <nav>
+          <Link to="/products">Products</Link>
+          {" | "}
+          <Link to="/cart">Cart</Link>
+          {" | "}
+          <Link to="/wishlist">Wishlist ❤️</Link>
+          {" | "}
+          <button onClick={handleLogout}>Logout</button>
+        </nav>
+      )}
 
       <Routes>
         <Route path="/login" element={<LoginPage />} />
@@ -72,9 +77,9 @@ function App() {
         <Route
           path="/checkout"
           element={
-            <protectedRoute>
+            <ProtectedRoute>
               <CheckoutPage />
-            </protectedRoute>
+            </ProtectedRoute>
           }
         />
 
