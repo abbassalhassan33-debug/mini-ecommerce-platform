@@ -14,3 +14,66 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+# Documentation
+
+Technical documentation:
+
+- Frontend architecture:
+  docs/FRONTEND.md
+
+- Backend architecture:
+  docs/BACKEND.md
+
+- Database design:
+  docs/DATABASE.md
+
+- AI usage:
+  docs/AI_USAGE.md
+
+# Git Strategy
+
+This project uses a monorepo structure.
+
+The repository contains:
+
+frontend/
+backend/
+
+Both applications are maintained together because they represent one product.
+
+## Branch Strategy
+
+main:
+Stable production-ready code.
+
+Feature branches:
+Used for isolated development.
+
+Examples:
+
+feature/login
+feature/cart
+feature/responsive-ui
+feature/documentation
+
+## Commit Strategy
+
+Commits are organized by feature:
+
+Examples:
+
+Add authentication flow
+
+Implement cart management
+
+Improve responsive design
+
+Add project documentation
+
+## Development Tools
+
+- Visual Studio Code
+- Git & GitHub
+- Postman (API testing)
+- Browser Developer Tools
