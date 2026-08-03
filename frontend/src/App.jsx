@@ -8,8 +8,16 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import WishlistPage from "./pages/WishlistPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <>
       <nav>
@@ -18,6 +26,8 @@ function App() {
         <Link to="/cart">Cart</Link>
         {" | "}
         <Link to="/wishlist">Wishlist ❤️</Link>
+        {" | "}
+        <button onClick={handleLogout}>Logout</button>
       </nav>
 
       <Routes>
