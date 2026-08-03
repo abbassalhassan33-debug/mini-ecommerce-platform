@@ -24,14 +24,20 @@ function App() {
   return (
     <>
       {!isLoginPage && (
-        <nav>
-          <Link to="/products">Products</Link>
-          {" | "}
-          <Link to="/cart">Cart</Link>
-          {" | "}
-          <Link to="/wishlist">Wishlist ❤️</Link>
-          {" | "}
-          <button onClick={handleLogout}>Logout</button>
+        <nav className="navbar">
+          <div className="navbar-brand">
+            <Link to="/products">MiniShop</Link>
+          </div>
+
+          <div className="navbar-links">
+            <Link to="/products">Products</Link>
+
+            <Link to="/cart">Cart</Link>
+
+            <Link to="/wishlist">Wishlist ❤️</Link>
+
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         </nav>
       )}
 
