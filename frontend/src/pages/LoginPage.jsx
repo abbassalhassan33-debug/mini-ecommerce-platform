@@ -1,10 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -33,12 +39,18 @@ function LoginPage() {
       localStorage.setItem("token", data.token);
 
       console.log("Login successful");
+
+      navigate("/products");
     } catch (error) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
   };
+
+  if (token) {
+    return <Navigate to="/Products" replace />;
+  }
 
   return (
     <div>
